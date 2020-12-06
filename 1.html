@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h3>{{person.mesag}}----{{person.value}}</h3>
+        <input type="text" v-model='input.a'>
+        <h4 v-on:click='click123'>{{click}}</h4>
+        <button @click='click321'>语法糖</button>
+        <ul>
+            <li>{{input.a}}</li>
+            <li>{{input.a}}</li>
+            <li>{{input.a}}</li>
+            <li>{{input.a}}</li>
+        </ul>
+        <div v-bind:style='color'>123123</div>
+        <div :style='color'>123123</div>
+        <div v-test='msg.a'>123</div>
+        <div v-html='sss'></div>
+    </div>
+    <script src="./Observer.js"></script>
+    <script src="./Mvue.js"></script>
+    <script>
+        let vm = new Mvue({
+            el: '#app',
+            data: {
+                person: {
+                    mesag: '我是person',
+                    value: 'aaa',
+                    abv: {
+                        a: '1'
+                    }
+                },
+                input: {
+                    a: '123123'
+                },
+                msg: {
+                    a: 'wowowo'
+                },
+                sss: '123',
+                click: '点击我',
+                color: 'color:red'
+            },
+            methods: {
+                click123() {
+                    this.input.a = '我变了'
+                },
+                click321() {
+                    alert('处理语法糖')
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
