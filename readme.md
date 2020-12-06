@@ -1,0 +1,7 @@
+个人博客https://blog.csdn.net/lin_fightin
+做了一些自己的理解解释。
+总结
+Vue的MVVM模式，主要就是在new Vue的时候，有三个类，一个Complie，一个Observer,一个Watcher,这三个类通过Dep类进行关联。首先是Observer，实现数据监听，主要是将数据传进去，通过object.defineproperty每个属性的set方法和get方法来对数据进行监听。还有创建Dep类，通过Dep类来将所有订阅者加到一起，并且通过Dep.notify()来通过订阅者数据修改。
+接着是Complie类，它负责将一开始的数据渲染并且后续的数据修改更新视图，首先创建一个文档碎片对象，并将所有的节点放进去，接着通过判断将每个节点一一进行数据更新，接着就把文档碎片对象挂载到app上面去。在进行数据更新的时候，会new Watcher,创建订阅者，在创建订阅者之初会获取data里面的值，所以会调用到get函数，在get函数里面，将订阅者一一加入到dep中，这样就实现加入订阅者的功能。接着更新数据的时候，会调用set函数，set函数中调用dep.notify（）来通过wathcer修改视图，watcher调用本身的update方法，获取最新的值进行判断并且调用一开始创建wathcer时的回调函数，通过Complie类实现视图更新。
+接着要实现双向数据绑定，主要是model即输入框，创建setVal方法，通过事件绑定input，获取事件对象e.target.value获取视图上输入的值，并且通过setVal进行更新，达到更新数据的功能。
+最后是代理，一开始我们的数据是在this.$data里面坚挺的，所以可以在Vue类里面，定义一个方法，在Vue类上就对这些数据进行一个监听，也是通过object.defineproperty，将第一个参数指向Vue类，遍历每个属性，并为其监听，这样在Vue类上就有这些数据和这些数据的get,set方法，并且可以通过this.name去获取或者修改数据了。
